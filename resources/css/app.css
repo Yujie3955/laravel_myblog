@@ -1,0 +1,14 @@
+/* resources/css/app.css */
+/* 使用 package name */
+/* 使用 package name */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定義樣式（可選） */
+body {
+    background-color: #f8f9fa;
+}
+

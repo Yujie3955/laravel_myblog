@@ -1,0 +1,8 @@
+/* 放置所有的 @import 语句在文件顶部 */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+/* 自定义样式（可选） */
+body {
+    background-color: #f8f9fa;
+}
