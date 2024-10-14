@@ -312,11 +312,23 @@
 				  <div class="row">
 					<div class="col-lg-6">
 						@if(isset($Flag_LastPage))
-							@if($SecTitle_Action=='新增')
-							<i class="fa-solid fa-arrow-left" onclick="location.href='../{{ $Flag_LastPage }}';"></i>
+							
+							@if(!isset($keyword))
+								@if($SecTitle_Action=='新增')
+									<i class="fa-solid fa-arrow-left" onclick="location.href='../{{ $Flag_LastPage }}';"></i>
+								@else
+									<i class="fa-solid fa-arrow-left" onclick="location.href='../../{{ $Flag_LastPage }}';"></i>
+								@endif
 							@else
-							<i class="fa-solid fa-arrow-left" onclick="location.href='../../{{ $Flag_LastPage }}';"></i>
+								@if($SecTitle_Action=='新增')
+									<i class="fa-solid fa-arrow-left" onclick="location.href='../{{ $Flag_LastPage }}?Module={{ $keyword }}';"></i>
+								@else
+									<i class="fa-solid fa-arrow-left" onclick="location.href='../../{{ $Flag_LastPage }}?Module={{ $keyword }}';"></i>
+								@endif
 							@endif
+
+
+
 						@endif
 						@if(isset($SecTitle_Action))
 							{{ $SecTitle_Action }}

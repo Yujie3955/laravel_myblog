@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BulletinController; //最新公告模組引入
-
+use App\Http\Controllers\MainCateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +26,5 @@ Route::middleware([
 });
 
 Route::resource('bulletins', BulletinController::class)->middleware(['auth']);
+Route::resource('mainCates', MainCateController::class)->middleware(['auth']);
+

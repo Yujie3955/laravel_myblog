@@ -12,11 +12,13 @@ class BulletinController extends Controller
      * Display a listing of the resource.
      */
     public $SecTitle ='最新公告';
+    public $Module = 'bulletins';
     public function index()
     {
         return view('bulletins.Index', [
             'DataList' => Bulletin::latest()->paginate(5),
-            'SecTitle' => $this->SecTitle
+            'SecTitle' => $this->SecTitle,
+            'Module'=> $this->Module
         ]);
     }
 

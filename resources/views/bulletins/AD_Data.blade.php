@@ -1,4 +1,10 @@
 @include('Include.head')
+<style>
+  label{
+    font-size:15px;
+    font-weight:bold;
+  }
+</style>
 <body>
     @include('Include.AD_BodyTop')
     @if($SecTitle_Action=='新增')
@@ -9,7 +15,7 @@
     @endif
     @csrf
     <div class="w-5/5 my-2">
-        <div class="row align-items-start">
+        <div class="row gy-4 align-items-start">
           <div class="col-lg-12">
             <label for="Bulletin_Title">公告標題:</label>
             <input type="text" name="Bulletin_Title" id="Bulletin_Title" @if(isset($bulletin)) value="{{ $bulletin->Bulletin_Title }}" @endif>
