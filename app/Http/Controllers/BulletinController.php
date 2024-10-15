@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Bulletin;
+use App\Models\MainCate;
 use App\Http\Requests\StoreBulletinRequest;
 use App\Http\Requests\UpdateBulletinRequest;
 
@@ -15,8 +16,9 @@ class BulletinController extends Controller
     public $Module = 'bulletins';
     public function index()
     {
+        $bulletins = Bulletin::with('mainCate')->latest()->paginate(5);
         return view('bulletins.Index', [
-            'DataList' => Bulletin::latest()->paginate(5),
+            'DataList' =>  $bulletins,
             'SecTitle' => $this->SecTitle,
             'Module'=> $this->Module
         ]);
@@ -27,9 +29,11 @@ class BulletinController extends Controller
      */
     public function create()
     {
+        $mainCates = MainCate::all();
         return view('bulletins.AD_Data',[
             'SecTitle' =>$this->SecTitle,
             'SecTitle_Action'=>'新增',
+            'MainCates'=>$mainCates,
             'Flag_LastPage'=>'bulletins'  //啟用回列表頁功能
         ]);
     }
@@ -40,9 +44,13 @@ class BulletinController extends Controller
 
     public function store(StoreBulletinRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated(); // 使用 validated() 方法來獲取驗證後的資料
+        //$data = $request->all();
         $data['Bulletin_Forever'] = $request->has('Bulletin_Forever') ? '1' : '0';
         $data['Bulletin_Enable'] = $request->has('Bulletin_Enable') ? '1' : '0';
+        //$data['main_cate_id'] = $request->input('main_cate_id'); // 從請求中獲取 main_cate_id
+
+
         Bulletin::create($data);
         
        return redirect()->route('bulletins.index')

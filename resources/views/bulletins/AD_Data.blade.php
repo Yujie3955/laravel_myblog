@@ -21,6 +21,14 @@
             <input type="text" name="Bulletin_Title" id="Bulletin_Title" @if(isset($bulletin)) value="{{ $bulletin->Bulletin_Title }}" @endif>
           </div>
           <div class="col-lg-12">
+            <label for="main_cate_id">公告類別:</label>
+            <select name="main_cate_id" required>
+                @foreach ($MainCates as $cate)
+                    <option value="{{ $cate->id }}">{{ $cate->MainCate_Name }}</option>
+                @endforeach
+            </select>
+          </div>
+          <div class="col-lg-12">
             <label for="Bulletin_StartDate">公告開始時間:</label>
             <input type="date" name="Bulletin_StartDate" id="Bulletin_StartDate" @if(isset($bulletin)) value="{{ $bulletin->Bulletin_StartDate }}" @endif>
           </div>

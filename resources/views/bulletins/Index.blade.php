@@ -24,6 +24,9 @@
             </div>
           </div>
       @endif
+      <pre>
+        
+      </pre>
     <table class="table table-striped table-bordered table-rwd">
         <tr class="tr-only-hide">
             <th>公告標題</th>
@@ -35,12 +38,16 @@
         @foreach ($DataList as $ThisData)
         <tr>
             <td data-th="公告標題">
+              
+              
               <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $ThisData->id }}">{{ $ThisData->Bulletin_Title }}</a>
               <div class="modal fade" id="exampleModal{{ $ThisData->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $ThisData->Bulletin_Title }}</h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        {{--  <span style="background-color:;color:{{ $ThisData->main_cate->MainCate_FontColor }};padding:5px;padding-left:10px;padding-right:10px;">{{ $ThisData->main_cate->MainCate_Name }}</span>{{ $ThisData->Bulletin_Title }}  --}}
+                      </h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
