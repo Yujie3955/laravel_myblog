@@ -24,7 +24,8 @@ class UpdateMainCateRequest extends FormRequest
     {
         return [
             'MainCate_Name' => 'required|string|max:255',
-            'Module_Name' => 'required|string|max:255'
+            'Module_Name' => 'required|string|max:255',
+            'MainCate_Color'=>'required'
         ];   
 
     }
