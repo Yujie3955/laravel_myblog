@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Bulletin;
 use App\Models\MainCate;
+use App\Models\DataFile;
 use App\Http\Requests\StoreBulletinRequest;
 use App\Http\Requests\UpdateBulletinRequest;
 
@@ -44,18 +45,27 @@ class BulletinController extends Controller
 
     public function store(StoreBulletinRequest $request)
     {
-        $data = $request->validated(); // 使用 validated() 方法來獲取驗證後的資料
+        //$data = $request->validated(); // 使用 validated() 方法來獲取驗證後的資料
+        $data = $request->all();
+        
         //$data = $request->all();
         $data['Bulletin_Forever'] = $request->has('Bulletin_Forever') ? '1' : '0';
         $data['Bulletin_Enable'] = $request->has('Bulletin_Enable') ? '1' : '0';
-        //$data['main_cate_id'] = $request->input('main_cate_id'); // 從請求中獲取 main_cate_id
 
-
-        Bulletin::create($data);
+        $bulletin=Bulletin::create($data);
         
+        
+        // 處理檔案上傳
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                // 檢查是否為檔案物件
+                if ($file instanceof \Illuminate\Http\UploadedFile) {
+                    $this->uploadFile($file, $bulletin->id, 'Bulletin');
+                }
+            }
+        }
        return redirect()->route('bulletins.index')
                 ->withSuccess($this->SecTitle.'新增成功');
-        
     }
 
     /**
@@ -115,5 +125,21 @@ class BulletinController extends Controller
         $bulletin->delete();
         return redirect()->route('bulletins.index')
                 ->withSuccess($this->SecTitle.'資料刪除成功');
+    }
+
+    protected function uploadFile($file, $bulletinId, $module)
+    {
+        // 獲取原始檔名
+        $originalName = $file->getClientOriginalName();
+        // 儲存檔案
+        $path = $file->store('uploads', 'public');
+        // 儲存檔案信息到資料庫
+        DataFile::create([
+            'File_Name' => $originalName,
+            'File_FakeName' => $path,
+            'File_Ext' => $file->getClientOriginalExtension(),
+            'Module' => $module,
+            'AutoID' => $bulletinId,
+        ]);
     }
 }

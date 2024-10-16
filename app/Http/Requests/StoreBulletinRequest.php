@@ -27,6 +27,7 @@ class StoreBulletinRequest extends FormRequest
             'Bulletin_EndDate' => 'required|date',
             'Bulletin_Content' => 'required|string',
             'main_cate_id' => 'required|exists:main_cates,id', // 確保它存在於 main_cates 表中
+            //'files' => 'file|mimes:jpg,jpeg,png,gif|max:2048', // 允許的檔案格式和大小限制
         ];
     }
 }

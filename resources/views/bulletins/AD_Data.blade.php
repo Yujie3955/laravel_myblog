@@ -8,9 +8,9 @@
 <body>
     @include('Include.AD_BodyTop')
     @if($SecTitle_Action=='新增')
-      <form action="{{ route('bulletins.store') }}" method="post">
+      <form action="{{ route('bulletins.store') }}" method="post" enctype="multipart/form-data">
     @else
-      <form action="{{ route('bulletins.update', $bulletin->id) }}" method="post">
+      <form action="{{ route('bulletins.update', $bulletin->id) }}" method="post" enctype="multipart/form-data">
       @method('PUT')
     @endif
     @csrf
@@ -47,6 +47,10 @@
           <div class="col-lg-12">
             <label for="Bulletin_Enable">是否顯示:</label>
             <input type="checkbox" name="Bulletin_Enable" id="Bulletin_Enable" @if(isset($bulletin)) @if($bulletin->Bulletin_Enable==1) checked @endif @endif>
+          </div>
+          <div class="col-lg-12">
+              <label for="files">上傳相關檔案：</label>
+              <input type="file" name="files[]" multiple>
           </div>
           <div class="col-lg-12">
               <input type="submit" class="btn btn-primary" value="送出">
