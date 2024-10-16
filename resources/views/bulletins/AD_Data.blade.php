@@ -24,7 +24,7 @@
             <label for="main_cate_id">公告類別:</label>
             <select name="main_cate_id" required>
                 @foreach ($MainCates as $cate)
-                    <option value="{{ $cate->id }}">{{ $cate->MainCate_Name }}</option>
+                    <option value="{{ $cate->id }}" @if(isset($bulletin)) @if($cate->id==$bulletin->main_cate_id) selected @endif @endif>{{ $cate->MainCate_Name }}</option>
                 @endforeach
             </select>
           </div>

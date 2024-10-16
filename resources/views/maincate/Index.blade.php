@@ -89,7 +89,13 @@
                   @method('DELETE')
                   <input type="hidden" name="Module" value="{{ $ThisData->Module_Name }}">
                   <button type="submit" class="btn btn-danger">刪除</button>
+                  
+                  @if (isset($keyword))
+                  <button type="button" class="btn btn-success" onclick="location.href='{{ route('mainCates.edit', $ThisData->id) }}?Module={{ $keyword }}'" >修改</button>
+                  @else
                   <button type="button" class="btn btn-success" onclick="location.href='{{ route('mainCates.edit', $ThisData->id) }}'" >修改</button>
+                  @endif
+                
                 </form>
             </td>
         </tr>

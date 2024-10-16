@@ -22,7 +22,11 @@ class UpdateBulletinRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'Bulletin_Title' => 'required|string|max:255',
+            'Bulletin_StartDate' => 'required|date',
+            'Bulletin_EndDate' => 'required|date',
+            'Bulletin_Content' => 'required|string',
+            'main_cate_id' => 'required|exists:main_cates,id', // 確保它存在於 main_cates 表中
         ];
     }
 }

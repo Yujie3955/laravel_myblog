@@ -76,8 +76,9 @@ class BulletinController extends Controller
         //調取目前擁有的欄位
         $Bulletin_All = new Bulletin();
         $Bulletin_Fill =  $Bulletin_All->getFillable();
-
+        $mainCates = MainCate::all();
         return view('bulletins.AD_Data', [
+            'MainCates' => $mainCates,
             'bulletin' => $bulletin,
             'fillable' => $Bulletin_Fill,
             'SecTitle_Action'=>'修改',
