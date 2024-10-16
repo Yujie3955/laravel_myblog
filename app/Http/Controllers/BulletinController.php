@@ -6,6 +6,7 @@ use App\Models\MainCate;
 use App\Models\DataFile;
 use App\Http\Requests\StoreBulletinRequest;
 use App\Http\Requests\UpdateBulletinRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class BulletinController extends Controller
@@ -120,13 +121,31 @@ class BulletinController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(Bulletin $bulletin)
+    // {
+    //     $bulletin->delete();
+    //     return redirect()->route('bulletins.index')
+    //             ->withSuccess($this->SecTitle.'資料刪除成功');
+    // }
+
     public function destroy(Bulletin $bulletin)
     {
+        // 刪除與公告相關的檔案
+        foreach ($bulletin->files as $file) {
+            // 檢查檔案是否存在於存儲中
+            if (Storage::exists($file->File_FakeName)) {
+                Storage::delete($file->File_FakeName); // 刪除檔案
+            }
+            $file->delete(); // 刪除資料表中的檔案記錄
+        }
+
+        // 刪除公告
         $bulletin->delete();
+
         return redirect()->route('bulletins.index')
                 ->withSuccess($this->SecTitle.'資料刪除成功');
     }
-
+    
     protected function uploadFile($file, $bulletinId, $module)
     {
         // 獲取原始檔名
