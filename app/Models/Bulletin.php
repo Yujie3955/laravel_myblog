@@ -23,7 +23,6 @@ class Bulletin extends Model
     {
         return $this->belongsTo(MainCate::class , 'main_cate_id');
     }
-    
     // 一對多:一則公告有多個檔案
     public function files(){
         return $this->hasMany(DataFile::class, 'AutoID')

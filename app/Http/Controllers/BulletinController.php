@@ -18,7 +18,7 @@ class BulletinController extends Controller
     public $Module = 'bulletins';
     public function index()
     {
-        $bulletins = Bulletin::with('mainCate')->latest()->paginate(5);
+        $bulletins = Bulletin::with(['mainCate', 'files'])->latest()->paginate(5);
         return view('bulletins.Index', [
             'DataList' =>  $bulletins,
             'SecTitle' => $this->SecTitle,
@@ -88,7 +88,17 @@ class BulletinController extends Controller
         $Bulletin_All = new Bulletin();
         $Bulletin_Fill =  $Bulletin_All->getFillable();
         $mainCates = MainCate::all();
+
+        $ThisFile = Bulletin::with(['mainCate', 'files'])
+            ->where('id', $bulletin->id)
+            ->whereHas('files', function ($query) {
+                $query->where('Module', 'Bulletin');
+            })
+            ->first();
+
+
         return view('bulletins.AD_Data', [
+            'ThisFile' => $ThisFile,
             'MainCates' => $mainCates,
             'bulletin' => $bulletin,
             'fillable' => $Bulletin_Fill,

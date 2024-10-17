@@ -2,6 +2,11 @@
 /*這是額外做顏色，沒有什麼意義*/
 tr.tr-only-hide {color: #D20B2A;}
 
+.tr-only-hide > th{
+  text-align:center;
+  background-color:#000000;
+}
+
 @media (max-width: 736px) {
   .table-rwd{min-width: 100%;}
   /*針對tr去做隱藏*/

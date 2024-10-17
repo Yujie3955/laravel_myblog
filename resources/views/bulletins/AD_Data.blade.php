@@ -15,12 +15,12 @@
     @if($SecTitle_Action != '新增')
       @method('PUT')
     @endif
-
     <div class="w-5/5 my-2">
       <div class="row gy-4 align-items-start">
 
         <!-- 公告標題 -->
         <div class="col-lg-12">
+
           <label for="Bulletin_Title">公告標題:</label>
           <input type="text" name="Bulletin_Title" id="Bulletin_Title" 
                  value="{{ old('Bulletin_Title', $bulletin->Bulletin_Title ?? '') }}">
@@ -99,13 +99,22 @@
           @error('files')
             <div class="text-danger">{{ $message }}</div>
           @enderror
+          <div style="width:100%;margin-top:20px;">
+            <div class="row gy-4 gx-2 align-items-center">
+              @if(isset($ThisFile))
+              @foreach($ThisFile->files as $ThisFileData)  
+              <div class="col-4">
+                <img src="{{ asset('storage/' . $ThisFileData->File_FakeName) }}" style="width:100%;">
+              </div>
+              @endforeach
+              @endif
+            </div>
+          </div>
         </div>
-
         <!-- 提交按鈕 -->
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="text-align:center;">
           <input type="submit" class="btn btn-primary" value="送出">
         </div>
-
       </div>
     </div>
   </form>

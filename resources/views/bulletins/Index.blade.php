@@ -1,4 +1,7 @@
 @include('Include.head')
+<style>
+ 
+</style>
 <body>
     @include('Include.AD_BodyTop')
     <div class="w-5/5 my-2">
@@ -32,8 +35,10 @@
             <th>公告標題</th>
             <th>公告開始時間</th>
             <th>公告結束時間</th>
+            <?php /* ?>
             <th>公告內容</th>
-            <td>操作</td>
+            <?php */ ?>
+            <th>操作</th>
         </tr>
         @foreach ($DataList as $ThisData)
         <tr>
@@ -50,7 +55,6 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      
                       <div style="width:100%;">
                         <div class="row">
                           <div class="col-lg-12">
@@ -65,6 +69,13 @@
                             <label>公告內容:</label>
                             {!! $ThisData->Bulletin_Content !!}
                           </div>
+                          <div class="col-lg-12">
+                              @foreach($ThisData->files as $ThisFileDetail) 
+                              <a href="{{ asset('storage/' . $ThisFileDetail->File_FakeName) }}" download="{{ $ThisFileDetail->File_FakeName }}">
+                                  <img src="{{ asset('storage/' . $ThisFileDetail->File_FakeName) }}" style="width:100%;">
+                              </a>
+                              @endforeach
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -78,9 +89,6 @@
             </td>
             <td data-th="公告開始時間">{{ $ThisData->Bulletin_StartDate }}</td>
             <td data-th="公告結束時間">{{ $ThisData->Bulletin_EndDate }}</td>
-            <td data-th="公告內容">
-              {{ $ThisData->Bulletin_Content }}
-            </td>
             <td data-th="操作">
                 <form action="{{ route('bulletins.destroy', $ThisData->id) }}" onsubmit="return confirm('您確定要刪除{{ $ThisData->Bulletin_Title }}');" method="POST">
                   @csrf
